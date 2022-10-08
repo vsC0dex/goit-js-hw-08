@@ -7,7 +7,7 @@ const inputEl = document.querySelector('input');
 form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input', throttle(onFormInput, 500));
 
-function onFormInput(evt) {
+function onFormInput() {
   
   const formData = { email: inputEl.value, message: textarea.value };
   
@@ -15,11 +15,18 @@ function onFormInput(evt) {
 }
 
 function onFormSubmit(evt) {
-  evt.preventDefault();
 
-  console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)));
+  evt.preventDefault();
+  // console.log(evt.currentTarget);
+  // console.log(evt.currentTarget.mail.value);
+  if (evt.currentTarget.email.value === '' || evt.currentTarget.message.value === '') {
+    alert('Ti sho?')
+  } else {
+    console.log(JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)));
+    localStorage.removeItem(LOCALSTORAGE_KEY);
   evt.currentTarget.reset();
-  localStorage.removeItem(LOCALSTORAGE_KEY);
+  }
+  
 }
 
 function cheksStorage() {
@@ -34,3 +41,5 @@ function cheksStorage() {
   }
 }
 cheksStorage();
+
+console.log('Hello');
